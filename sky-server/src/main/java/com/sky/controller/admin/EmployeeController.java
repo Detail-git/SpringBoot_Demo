@@ -91,4 +91,14 @@ public class EmployeeController {
 
         return Result.success(pageResult);
     }
+
+    /**
+     * 启用或禁用员工账号
+     */
+    @PostMapping("/status/{status}")
+    public Result UseOrBan( Long id, @PathVariable Integer status){
+        log.info("使用或禁用员工账号:{},{}",id,status);
+        employeeService.UseOrBan(id,status);
+        return Result.success();
+    }
 }
