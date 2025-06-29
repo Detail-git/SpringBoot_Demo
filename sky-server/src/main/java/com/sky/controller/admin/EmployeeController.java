@@ -96,9 +96,29 @@ public class EmployeeController {
      * 启用或禁用员工账号
      */
     @PostMapping("/status/{status}")
-    public Result UseOrBan( Long id, @PathVariable Integer status){
+    public Result UseOrBan(Long id, @PathVariable Integer status){
         log.info("使用或禁用员工账号:{},{}",id,status);
         employeeService.UseOrBan(id,status);
+        return Result.success();
+    }
+
+    /**
+     * 根据id查询员工信息
+     */
+    @GetMapping("/{id}")
+    public Result<Employee> getEmployeeById(@PathVariable Long id){
+        log.info("根据id查询员工信息:{}",id);
+        Employee employee = employeeService.getEmployeeById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * 编辑员工信息
+     */
+    @PutMapping
+    public Result<EmployeeDTO> updateEmployee(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息:{}", employeeDTO);
+        employeeService.updateEmployee(employeeDTO);
         return Result.success();
     }
 }

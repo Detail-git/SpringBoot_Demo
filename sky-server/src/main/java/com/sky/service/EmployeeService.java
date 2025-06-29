@@ -24,4 +24,8 @@ public interface EmployeeService {
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
     void UseOrBan(Long id, Integer status);
+
+    Employee getEmployeeById(Long id);
+
+    void updateEmployee(EmployeeDTO employeeDTO);
 }
