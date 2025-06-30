@@ -11,4 +11,6 @@ public interface CategoryService {
     void update(CategoryDTO categoryDTO);
 
     void UseOrBan(Integer status, Long id);
+
+    void save(CategoryDTO categoryDTO);
 }

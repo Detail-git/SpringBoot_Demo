@@ -54,4 +54,14 @@ public class CategoryController {
         categoryService.UseOrBan(status, id);
         return Result.success();
     }
+
+    /**
+     * 新增分类
+     */
+    @PostMapping
+    public Result save(@RequestBody CategoryDTO categoryDTO){
+        log.info("新增分类");
+        categoryService.save(categoryDTO);
+        return Result.success();
+    }
 }

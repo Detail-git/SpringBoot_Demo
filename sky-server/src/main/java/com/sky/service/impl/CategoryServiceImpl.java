@@ -2,6 +2,7 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
@@ -55,6 +56,11 @@ public class CategoryServiceImpl implements CategoryService {
         categoryMapper.update(category);
     }
 
+    /**
+     * 禁用或启用菜品
+     * @param status
+     * @param id
+     */
     @Override
     public void UseOrBan(Integer status, Long id) {
 
@@ -62,5 +68,27 @@ public class CategoryServiceImpl implements CategoryService {
         category.setId(id);
         category.setStatus(status);
         categoryMapper.update(category);
+    }
+
+    /**
+     * 新增分类
+     * @param categoryDTO
+     */
+    @Override
+    public void save(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        //复制对象属性
+        BeanUtils.copyProperties(categoryDTO, category);
+
+        //设置菜品状态，默认禁用
+        category.setStatus(StatusConstant.DISABLE);
+
+        category.setUpdateTime(LocalDateTime.now());
+        category.setUpdateTime(LocalDateTime.now());
+
+        category.setUpdateUser(BaseContext.getCurrentId());
+        category.setCreateUser(BaseContext.getCurrentId());
+
+        categoryMapper.insert(category);
     }
 }
