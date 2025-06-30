@@ -13,4 +13,6 @@ public interface CategoryService {
     void UseOrBan(Integer status, Long id);
 
     void save(CategoryDTO categoryDTO);
+
+    void deleteCategory(Long id);
 }
