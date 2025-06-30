@@ -54,4 +54,13 @@ public class CategoryServiceImpl implements CategoryService {
 
         categoryMapper.update(category);
     }
+
+    @Override
+    public void UseOrBan(Integer status, Long id) {
+
+        Category category = new Category();
+        category.setId(id);
+        category.setStatus(status);
+        categoryMapper.update(category);
+    }
 }

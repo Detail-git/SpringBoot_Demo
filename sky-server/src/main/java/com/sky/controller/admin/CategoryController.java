@@ -44,4 +44,14 @@ public class CategoryController {
         categoryService.update(categoryDTO);
         return Result.success();
     }
+
+    /**
+     * 启用禁用菜品
+     */
+    @PostMapping("status/{status}")
+    public Result UseOrBan(@PathVariable Integer status, Long id){
+        log.info("启用或禁用菜品:{},{}", status, id);
+        categoryService.UseOrBan(status, id);
+        return Result.success();
+    }
 }
