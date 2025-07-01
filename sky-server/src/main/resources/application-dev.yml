@@ -6,3 +6,10 @@ sky:
     database: sky_take_out
     username: root
     password: 123456
+
+    #在application-dev.yml中添加本地文件存储配置：
+  file:
+    storage-type: local  # 指定存储类型为本地
+    local:
+      storage-path: D:/sky-take-out/images/  # 本地存储目录
+      server-url: http://localhost:8080/images/  # 访问URL前缀

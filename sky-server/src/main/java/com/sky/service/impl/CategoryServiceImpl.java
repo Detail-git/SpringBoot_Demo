@@ -58,8 +58,8 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = new Category();
         BeanUtils.copyProperties(categoryDTO, category);
 
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId());
+        //category.setUpdateTime(LocalDateTime.now());
+        //category.setUpdateUser(BaseContext.getCurrentId());
 
         categoryMapper.update(category);
     }
@@ -75,8 +75,8 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = new Category();
         category.setId(id);
         category.setStatus(status);
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId());
+        //category.setUpdateTime(LocalDateTime.now());
+        //category.setUpdateUser(BaseContext.getCurrentId());
         categoryMapper.update(category);
     }
 
@@ -93,11 +93,11 @@ public class CategoryServiceImpl implements CategoryService {
         //设置菜品状态，默认禁用
         category.setStatus(StatusConstant.DISABLE);
 
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateTime(LocalDateTime.now());
+        //category.setUpdateTime(LocalDateTime.now());
+        //category.setUpdateTime(LocalDateTime.now());
 
-        category.setUpdateUser(BaseContext.getCurrentId());
-        category.setCreateUser(BaseContext.getCurrentId());
+        //category.setUpdateUser(BaseContext.getCurrentId());
+        //category.setCreateUser(BaseContext.getCurrentId());
 
         categoryMapper.insert(category);
     }
@@ -124,5 +124,14 @@ public class CategoryServiceImpl implements CategoryService {
         }
         //删除分类数据
         categoryMapper.deleteById(id);
+    }
+
+    /**
+     * 根据类型查询分类
+     * @param type
+     * @return
+     */
+    public List<Category> list(Integer type) {
+        return categoryMapper.list(type);
     }
 }
