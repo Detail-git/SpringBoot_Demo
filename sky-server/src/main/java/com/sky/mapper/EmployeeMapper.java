@@ -35,6 +35,10 @@ public interface EmployeeMapper {
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /**
+     * 编辑员工信息
+     * @param employee
+     */
     @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
 

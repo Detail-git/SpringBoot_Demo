@@ -11,5 +11,5 @@ sky:
   file:
     storage-type: local  # 指定存储类型为本地
     local:
-      storage-path: D:/sky-take-out/images/  # 本地存储目录
+      storage-path: D:/javaproject/sky-take-out/images/  # 本地存储目录
       server-url: http://localhost:8080/images/  # 访问URL前缀
