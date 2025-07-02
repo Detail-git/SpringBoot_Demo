@@ -18,6 +18,8 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.sky.entity
   configuration:
+    #在配置中添加 log-impl 输出 SQL，直观查看执行的 SQL 语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     #开启驼峰命名
     map-underscore-to-camel-case: true
 

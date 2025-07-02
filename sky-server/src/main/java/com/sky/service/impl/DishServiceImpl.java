@@ -1,11 +1,17 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.entity.Employee;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.result.PageResult;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +50,24 @@ public class DishServiceImpl implements DishService {
             });
             dishFlavorMapper.insertBatch(flavors);
         }
+    }
+
+    /**
+     * 分页查询菜品
+     * @param dishPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
+        //使用PageHelper插件，只需在代码中简单调用PageHelper.startPage(pageNum, pageSize) （pageNum 是页码，pageSize 是每页记录数 ）
+        // 就能自动为 SQL 查询添加分页逻辑，无需关注具体数据库分页语法细节，极大简化开发流程。
+        PageHelper.startPage(dishPageQueryDTO.getPage(),dishPageQueryDTO.getPageSize());
+
+        Page<DishVO> page = dishMapper.pageQuery(dishPageQueryDTO);
+
+        long total = page.getTotal();
+        List<DishVO> records = page.getResult();
+
+        return new PageResult(total, records);
     }
 }
