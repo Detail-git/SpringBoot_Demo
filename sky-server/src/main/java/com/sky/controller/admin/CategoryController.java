@@ -67,7 +67,7 @@ public class CategoryController {
     }
 
     /**
-     * 根据id删除菜品
+     * 根据id删除菜品分类
      */
     @DeleteMapping
     public Result deleteCategory(Long id){
