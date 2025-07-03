@@ -13,3 +13,7 @@ sky:
     local:
       storage-path: D:/javaproject/sky-take-out/images/  # 本地存储目录
       server-url: http://localhost:8080/images/  # 访问URL前缀
+
+      redis:
+        host: localhost
+        port: 6379
