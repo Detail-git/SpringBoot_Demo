@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface DishFlavorMapper {
     /**
-     * 批量插入
+     * 批量插入菜品口味数据
      * @param flavors
      */
     void insertBatch(List<DishFlavor> flavors);

@@ -28,6 +28,7 @@ public interface DishMapper {
      * 插入菜品数据
      * @param dish
      */
+    //@AutoFill注解为自动填充公共字段，如创建时间之类的字段
     @AutoFill(value = OperationType.INSERT)
     void insert(Dish dish);
 
@@ -53,7 +54,17 @@ public interface DishMapper {
     @Delete("delete from dish where id = #{id}")
     void deleteById(Long id);
 
+    /**
+     * 修改菜品
+     * @param dish
+     */
+    @AutoFill(value = OperationType.UPDATE)
     void update(Dish dish);
 
+    /**
+     * 根据类型查询菜品
+     * @param dish
+     * @return
+     */
     List<Dish> list(Dish dish);
 }

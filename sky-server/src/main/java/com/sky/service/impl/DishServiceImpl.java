@@ -42,7 +42,6 @@ public class DishServiceImpl implements DishService {
      * 新增菜品
      * @param dishDTO
      */
-
     @Override
     @Transactional
     public void addDishWithFlavor(DishDTO dishDTO) {
@@ -52,6 +51,11 @@ public class DishServiceImpl implements DishService {
         dishMapper.insert(dish);
 
         //获取insert语句生成的主键值
+        /**
+         * 拿取该数据时有一个注意事项，由于id不是在插入数据时输入的
+         * 而是插入菜品数据后数据库自增的字段，所以插入数据后才会有id产生
+         * 此时不能由前端直接拿到id，需要在sql语句处加两个属性返回这个id才行
+         */
         Long dishId = dish.getId();
 
         List<DishFlavor> flavors = dishDTO.getFlavors();
@@ -78,6 +82,8 @@ public class DishServiceImpl implements DishService {
         Page<DishVO> page = dishMapper.pageQuery(dishPageQueryDTO);
 
         long total = page.getTotal();
+
+        //这里是强制转换了数据类型
         List<DishVO> records = page.getResult();
 
         return new PageResult(total, records);
@@ -90,7 +96,10 @@ public class DishServiceImpl implements DishService {
     @Override
     @Transactional
     public void deleteDish(List<Long> ids) {
-        //判断当前菜品是否存在起售中的菜品
+        //增强for循环(iter)判断当前菜品是否存在起售中的菜品
+//        for (元素类型 元素变量 : 遍历对象) {
+            // 循环体：对每个元素进行操作
+//        }
         for (Long id : ids) {
             Dish dish = dishMapper.getById(id);
             if (dish.getStatus() == StatusConstant.ENABLE){
@@ -190,5 +199,33 @@ public class DishServiceImpl implements DishService {
         }
 
         return dishVOList;
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Dish> selectDishList(Long categoryId) {
+        Dish dish = new Dish();
+        dish.setCategoryId(categoryId);
+        List<Dish> dishList = dishMapper.list(dish);
+        return dishList;
+    }
+
+    /**
+     * 起售或禁售菜品
+     * @param status
+     * @param id
+     */
+    @Override
+    public void dishStatus(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                .status(status)
+                .id(id)
+                .build();
+
+        dishMapper.update(dish);
     }
 }

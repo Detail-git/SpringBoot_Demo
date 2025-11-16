@@ -120,10 +120,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void UseOrBan(Long id, Integer status) {
 
+        /**
+         * 这种方式的缺点很明显：
+         * 代码冗长：如果对象有很多属性，需要写大量 setXxx() 方法，代码显得臃肿。
+         * 对象状态不连贯：创建对象时，employee 先被实例化（此时属性可能是默认值），再通过 set 方法逐个赋值。
+         * 如果赋值过程中被其他线程访问，可能导致对象状态不一致（比如只赋值了 id，还没赋值 status，对象就被使用了）。
+         * 可读性差：一堆 set 方法堆在一起，很难一眼看清对象的完整属性。
+         */
 //        Employee employee = new Employee();
 //        employee.setStatus(status);
 //        employee.setId(id);
 
+
+        /**
+         * 对比传统写法，Builder 模式的好处很突出：
+         * 链式调用，代码简洁优雅：通过 .属性名(值) 的链式写法，一行代码就能完成对象构建，可读性极高（像 “搭积木” 一样清晰）。
+         * 对象状态一致：只有调用 build() 方法时，才会真正创建 Employee 对象。在此之前，所有属性设置都在 Builder 内部进行，避免了对象状态不完整的问题。
+         * 支持必填属性校验：可以在 Builder 的构造函数中强制传入必填属性（比如 id），确保对象创建时关键属性不会缺失（后面会举例）。
+         * 兼容多版本属性扩展：如果后续给 Employee 增加新属性（比如 email），只需在 Builder 中添加 email(String email) 方法即可，无需修改原有代码（符合 “开闭原则”）。
+         */
         Employee employee = Employee.builder()
                 .status(status)
                 .id(id)
