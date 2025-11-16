@@ -4,3 +4,5 @@
 *.class
 *Test.java
 **/test/
+# 忽略本地开发敏感配置文件（含微信新密钥、数据库密码）
+sky-server/src/main/resources/application-dev.yml
